@@ -1,4 +1,8 @@
-﻿step0:
+﻿##Interpreter Version:
+	python 2.7.13
+	
+## How to run
+step0:
 	pip install -r requirements.txt
 	
 step1:
@@ -13,12 +17,13 @@ step 3:
 	'simple.png'： simplified map
 	'lines_simple_out.txt': map info (corresponding to simple.png)
 
-Interpreter Version:
-	python 2.7.13
 
-Others:	
+##Others:	
 	I have tested five datasets offered at ACM SIGSPATIAL Cup 2014 and put results at './others' directory.
 	'./others' directory contains five directories(from 1 to 5) which correspond to five datasets 
 	at http://mypages.iit.edu/~xzhang22/GISCUP2014/downloads.php respectively.
+
+##Git address:
+https://github.com/liwen-cococo/MapGeneralization
 
 	
