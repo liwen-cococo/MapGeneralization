@@ -50,4 +50,22 @@ def getCPNumInBox(cps, x_min, x_max, y_min, y_max):
             cou +=  1
 
     return (cou, inside_cps)
-        
+
+def GenLinesSimpleOutTxt(results, file_name='./result/1452288_lines_simple_out.txt'):
+    """
+    results:(dict) key:line id, value: a series of points
+    file_name: lines_simple_out.txt
+    """
+    content = []
+    fixed_1 = """:<gml:LineString srsName="EPSG:54004" xmlns:gml="http://www.opengis.net/gml"><gml:coordinates decimal="." cs="," ts=" ">"""
+    fixed_2 = "</gml:coordinates></gml:LineString>\n"
+    for k in results:
+        temp = k + fixed_1
+        for p in results[k]:
+            temp = temp + str(p[0]) + ',' + str(p[1]) + ' '
+        temp += fixed_2
+        content.append(temp)
+    
+    with open(file_name, 'w') as f:
+        f.writelines(content)
+    

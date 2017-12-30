@@ -1,42 +1,31 @@
 import pickle as pkl
 import matplotlib.pyplot as plt 
 from TopoPartition import TopologyPartition
-from helper import checkSC1, checkSC2
+from helper import checkSC1, checkSC2, GenLinesSimpleOutTxt
 from draw import DrawMap
 
 
 if __name__ == '__main__':
-    lines, cps = {}, []
-    sc1, sc2 = [], []
-    with open('graph.pkl') as f:
-        (lines, cps) = pkl.load(f)
-        sc1 = checkSC1(lines)
-        sc2 = checkSC2(lines)
-    
+    # draw complex map and get map info --------------------------------------------
+    dp_complex = DrawMap(line_path='./source/lines_out.txt', cp_path='./source/points_out.txt')
+    (lines, cps) = dp_complex.draw('./result/complex.png')
+    sc1, sc2 = checkSC1(lines), checkSC2(lines)
+
+    # run simplifying algorithm to get simplified map -----------------------------
     tp = TopologyPartition(lines, cps, sc1, sc2)
     results = tp.simplify()
-    print 'simplify done'
 
-    l_len = 0
-    for k in lines:
-        l_len += 1
-    print 'lines number =', l_len
-
-    # draw
-    cou = 0
-    results_len = 0
+    # draw simplified map ---------------------------------------------------------
+    plt.clf()
     dm = DrawMap()
     for k in results:
-        results_len += 1
         dm.drawSingleLine(results[k])
-        if results[k].__len__ < 2:
-            print '------------line id =', k
-        cou += results[k].__len__()
-    print 'results_len =', results_len
     dm.drawCP()
     plt.gca().set_aspect(1)
     plt.savefig('./result/simple.png')
-    plt.show()
+    #plt.show()
 
-    print cou
-    print 'all done'
+    # generate lines_simple_out.txt -----------------------------------------------
+    GenLinesSimpleOutTxt(results, file_name='./result/lines_simple_out.txt')
+
+    print 'successfully done'

@@ -49,9 +49,9 @@ class TopologyPartition(object):
                     results.extend(temp)
                     break
             try:
-                assert results[-1] == points[-1]
+               assert results[-1] == points[-1]
             except AssertionError:
-                results.append(points[-1])
+               results.append(points[-1])
                     
             return results
 
@@ -75,4 +75,5 @@ class TopologyPartition(object):
             if x > 0: # as long as cp is in the rectangle.
                 results.append(points[i])
             # else: remove this point
+        results.append(points[-1])
         return results
